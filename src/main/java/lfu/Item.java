@@ -1,7 +1,7 @@
 package lfu;
 
 public class Item<Key, Data> {
-    private Data data;
+    private final Data data;
     private FrequencyNode<Key> parent;
 
     public Item(Data data, FrequencyNode<Key> parent) {
@@ -11,10 +11,6 @@ public class Item<Key, Data> {
 
     public Data getData() {
         return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
     }
 
     public FrequencyNode<Key> getParent() {

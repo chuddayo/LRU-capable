@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FrequencyNode<Key> {
-    private Integer value;
+    private final Integer value;
     private FrequencyNode<Key> prev;
     private FrequencyNode<Key> next;
-    private Set<Key> itemSet;
+    private final Set<Key> itemSet;
 
     public FrequencyNode () {
         value = 0;
@@ -25,10 +25,6 @@ public class FrequencyNode<Key> {
 
     public Integer getValue() {
         return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
     }
 
     public FrequencyNode<Key> getPrev() {
@@ -49,9 +45,5 @@ public class FrequencyNode<Key> {
 
     public Set<Key> getItemSet() {
         return itemSet;
-    }
-
-    public void setItemSet(Set<Key> itemSet) {
-        this.itemSet = itemSet;
     }
 }

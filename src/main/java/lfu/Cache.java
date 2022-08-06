@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cache<Key> {
-    private Map<Key, Item> cacheMap;
-    private FrequencyNode<Key> frequencyHead;
+    private final Map<Key, Item> cacheMap;
+    private final FrequencyNode<Key> frequencyHead;
     private Integer cacheCapacity;
 
     public Cache(Integer capacity) {
@@ -18,16 +18,8 @@ public class Cache<Key> {
         return cacheMap;
     }
 
-    public void setCacheMap(Map<Key, Item> cacheMap) {
-        this.cacheMap = cacheMap;
-    }
-
-    public FrequencyNode getFrequencyHead() {
+    public FrequencyNode<Key> getFrequencyHead() {
         return frequencyHead;
-    }
-
-    public void setFrequencyHead(FrequencyNode frequencyHead) {
-        this.frequencyHead = frequencyHead;
     }
 
     public Integer getCacheCapacity() {

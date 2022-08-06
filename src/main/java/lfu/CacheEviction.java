@@ -52,7 +52,7 @@ public class CacheEviction<Key, Data> {
     // GET the LFU item's key
     public Key getLFUItem() {
         if (cache.getCacheMap().size() == 0) throw new RuntimeException("The set is empty.");
-        return (Key) cache.getFrequencyHead().getNext().getItemSet().iterator().next();
+        return cache.getFrequencyHead().getNext().getItemSet().iterator().next();
     }
 
     // EVICT the LFU Item in our cache
