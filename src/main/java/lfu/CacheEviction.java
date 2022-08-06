@@ -3,10 +3,6 @@ package lfu;
 public class CacheEviction {
     Cache cache = Cache.getCache();
 
-    public FrequencyNode createFrequencyNode() {
-        return new FrequencyNode();
-    }
-
     public FrequencyNode getNewNode(Integer value, FrequencyNode prev, FrequencyNode next) {
         FrequencyNode newNode = new FrequencyNode(value, prev, next);
         prev.setNext(newNode);
@@ -37,6 +33,9 @@ public class CacheEviction {
     public void insert(Integer key, String value) {
         if (cache.getCacheMap().containsKey(key)) throw new RuntimeException("Key already exists.");
 
+        // if we're at capacity, evict the LFU item
+        if (cache.getCacheMap().size() >= cache.getCacheCapacity()) evictLFUItem();
+
         FrequencyNode frequencyNode = cache.getFrequencyHead().getNext();
         if (frequencyNode.getValue() != 1) frequencyNode = getNewNode(1, cache.getFrequencyHead(), frequencyNode);
 
@@ -47,10 +46,25 @@ public class CacheEviction {
     public void deleteNode(FrequencyNode node) {
         node.getPrev().setNext(node.getNext());
         node.getNext().setPrev(node.getPrev());
+        System.out.println(node.getValue() + " deleted");
     }
 
-    public String getLFUItem() {
+    // GET the LFU item's key
+    public Integer getLFUItem() {
         if (cache.getCacheMap().size() == 0) throw new RuntimeException("The set is empty.");
-        return cache.getCacheMap().get(cache.getFrequencyHead().getNext().getItemSet().iterator().next()).getData();
+        return cache.getFrequencyHead().getNext().getItemSet().iterator().next();
+    }
+
+    // EVICT the LFU Item in our cache
+    public void evictLFUItem() {
+        FrequencyNode leastFrequencyUsedNode = cache.getFrequencyHead().getNext();
+        Integer key = getLFUItem();
+        //System.out.println("we're gonna remove " + key);
+
+        // we'll remove the key from both data structures
+        cache.getCacheMap().remove(key);
+        cache.getFrequencyHead().getNext().getItemSet().remove(key);
+
+        if (leastFrequencyUsedNode.getItemSet().size() == 0) deleteNode(leastFrequencyUsedNode);
     }
 }
