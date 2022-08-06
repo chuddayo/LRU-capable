@@ -3,27 +3,22 @@ package lfu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cache {
-    private static final Cache cache = new Cache(10);
-    private Map<Integer, Item> cacheMap;
-    private FrequencyNode frequencyHead;
+public class Cache<Key> {
+    private Map<Key, Item> cacheMap;
+    private FrequencyNode<Key> frequencyHead;
     private Integer cacheCapacity;
 
-    private Cache(Integer capacity) {
+    public Cache(Integer capacity) {
         cacheMap = new HashMap<>();
-        frequencyHead = new FrequencyNode();
+        frequencyHead = new FrequencyNode<>();
         cacheCapacity = capacity;
     }
 
-    public static Cache getCache() {
-        return cache;
-    }
-
-    public Map<Integer, Item> getCacheMap() {
+    public Map<Key, Item> getCacheMap() {
         return cacheMap;
     }
 
-    public void setCacheMap(Map<Integer, Item> cacheMap) {
+    public void setCacheMap(Map<Key, Item> cacheMap) {
         this.cacheMap = cacheMap;
     }
 

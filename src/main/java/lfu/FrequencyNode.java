@@ -3,11 +3,11 @@ package lfu;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FrequencyNode {
+public class FrequencyNode<Key> {
     private Integer value;
-    private FrequencyNode prev;
-    private FrequencyNode next;
-    private Set<Integer> itemSet;
+    private FrequencyNode<Key> prev;
+    private FrequencyNode<Key> next;
+    private Set<Key> itemSet;
 
     public FrequencyNode () {
         value = 0;
@@ -16,7 +16,7 @@ public class FrequencyNode {
         itemSet = new HashSet<>();
     }
 
-    public FrequencyNode (Integer value, FrequencyNode prev, FrequencyNode next) {
+    public FrequencyNode (Integer value, FrequencyNode<Key> prev, FrequencyNode<Key> next) {
         this.value = value;
         this.prev = prev;
         this.next = next;
@@ -31,27 +31,27 @@ public class FrequencyNode {
         this.value = value;
     }
 
-    public FrequencyNode getPrev() {
+    public FrequencyNode<Key> getPrev() {
         return prev;
     }
 
-    public void setPrev(FrequencyNode prev) {
+    public void setPrev(FrequencyNode<Key> prev) {
         this.prev = prev;
     }
 
-    public FrequencyNode getNext() {
+    public FrequencyNode<Key> getNext() {
         return next;
     }
 
-    public void setNext(FrequencyNode next) {
+    public void setNext(FrequencyNode<Key> next) {
         this.next = next;
     }
 
-    public Set<Integer> getItemSet() {
+    public Set<Key> getItemSet() {
         return itemSet;
     }
 
-    public void setItemSet(Set<Integer> itemSet) {
+    public void setItemSet(Set<Key> itemSet) {
         this.itemSet = itemSet;
     }
 }

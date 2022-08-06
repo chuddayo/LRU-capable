@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CacheEvictionTest {
-    CacheEviction cacheEviction;
+    CacheEviction<Integer, String> cacheEviction;
     @Before
     public void init() {
-        cacheEviction = new CacheEviction();
+        cacheEviction = new CacheEviction<>();
     }
 
     @Test
@@ -119,7 +119,6 @@ public class CacheEvictionTest {
     }
 
     // TODO can we actually test the speed with big data set?
-    // TODO can we genericize the key and data types without affecting tests?
 
     @After
     public void cleanUp() {

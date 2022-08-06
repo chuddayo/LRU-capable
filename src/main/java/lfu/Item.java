@@ -1,27 +1,27 @@
 package lfu;
 
-public class Item {
-    private String data;
-    private FrequencyNode parent;
+public class Item<Key, Data> {
+    private Data data;
+    private FrequencyNode<Key> parent;
 
-    public Item(String data, FrequencyNode parent) {
+    public Item(Data data, FrequencyNode<Key> parent) {
         this.data = data;
         this.parent = parent;
     }
 
-    public String getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
-    public FrequencyNode getParent() {
+    public FrequencyNode<Key> getParent() {
         return parent;
     }
 
-    public void setParent(FrequencyNode parent) {
+    public void setParent(FrequencyNode<Key> parent) {
         this.parent = parent;
     }
 }
