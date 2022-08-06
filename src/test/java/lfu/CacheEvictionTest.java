@@ -20,6 +20,15 @@ public class CacheEvictionTest {
     }
 
     @Test
+    public void getNewNodeTest() {
+        FrequencyNode<Integer> frequencyNode = cacheEviction
+                .getNewNode(3, new FrequencyNode<>(), new FrequencyNode<>());
+
+        int actual = frequencyNode.getValue();
+        Assert.assertEquals(3, actual);
+    }
+
+    @Test
     public void insertTest() {
         cacheEviction.insert(0, "apple");
         int actual = cacheEviction.cache.getCacheMap().size();
@@ -101,9 +110,12 @@ public class CacheEvictionTest {
     @Test
     public void deleteNodeTest() {
         cacheEviction.insert(1, "coffee");
-        cacheEviction.access(1);
-
         int actual = cacheEviction.cache.getFrequencyHead().getNext().getValue();
+
+        Assert.assertEquals(1, actual);
+
+        cacheEviction.access(1);
+        actual = cacheEviction.cache.getFrequencyHead().getNext().getValue();
 
         Assert.assertEquals(2, actual);
     }
@@ -113,12 +125,38 @@ public class CacheEvictionTest {
         cacheEviction.getLFUItem();
     }
 
+    @Test
+    public void getLFUItemKey() {
+        cacheEviction.insert(1, "coffee");
+        cacheEviction.insert(14, "school");
+        cacheEviction.access(1);
+
+        int actualKey = cacheEviction.getLFUItem();
+
+        Assert.assertEquals(14, actualKey);
+    }
+
     @Test (expected = RuntimeException.class)
     public void evictLFUItemFromEmptySet() {
         cacheEviction.evictLFUItem();
     }
 
-    // TODO can we actually test the speed with big data set?
+    @Test
+    public void evictLFUItemTest() {
+        cacheEviction.insert(1, "coffee");
+        cacheEviction.insert(14, "school");
+        cacheEviction.access(1);
+
+        int actualKey = cacheEviction.getLFUItem();
+
+        Assert.assertEquals(14, actualKey);
+
+        cacheEviction.evictLFUItem();
+        // after we evict 14, we expect 1 to be new LFU
+        actualKey = cacheEviction.getLFUItem();
+
+        Assert.assertEquals(1, actualKey);
+    }
 
     @After
     public void cleanUp() {
