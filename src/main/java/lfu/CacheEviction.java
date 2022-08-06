@@ -1,7 +1,7 @@
 package lfu;
 
 public class CacheEviction<Key, Data> {
-    Cache<Key> cache = new Cache<>(10);
+    Cache<Key, Data> cache = new Cache<>(10);
 
     public FrequencyNode<Key> getNewNode(Integer value, FrequencyNode<Key> prev, FrequencyNode<Key> next) {
         FrequencyNode<Key> newNode = new FrequencyNode<>(value, prev, next);

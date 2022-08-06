@@ -3,8 +3,8 @@ package lfu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cache<Key> {
-    private final Map<Key, Item> cacheMap;
+public class Cache<Key, Data> {
+    private final Map<Key, Item<Key, Data>> cacheMap;
     private final FrequencyNode<Key> frequencyHead;
     private Integer cacheCapacity;
 
@@ -14,7 +14,7 @@ public class Cache<Key> {
         cacheCapacity = capacity;
     }
 
-    public Map<Key, Item> getCacheMap() {
+    public Map<Key, Item<Key, Data>> getCacheMap() {
         return cacheMap;
     }
 
