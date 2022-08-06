@@ -87,6 +87,18 @@ public class CacheEvictionTest {
     }
 
     @Test
+    public void accessReturnsCorrectDataTest() {
+        String expected = "school";
+        cacheEviction.insert(0, "banana");
+        cacheEviction.insert(1, "coffee");
+        cacheEviction.insert(14, expected);
+
+        String actual = cacheEviction.access(14);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void deleteNodeTest() {
         cacheEviction.insert(1, "coffee");
         cacheEviction.access(1);
@@ -105,6 +117,9 @@ public class CacheEvictionTest {
     public void evictLFUItemFromEmptySet() {
         cacheEviction.evictLFUItem();
     }
+
+    // TODO can we actually test the speed with big data set?
+    // TODO can we genericize the key and data types without affecting tests?
 
     @After
     public void cleanUp() {
