@@ -161,6 +161,5 @@ public class CacheEvictionTest {
     @After
     public void cleanUp() {
         cacheEviction.cache.getCacheMap().clear();
-        // do I need to also clear the freq node list?
     }
 }

@@ -3,6 +3,7 @@ package lfu;
 public class CacheEviction<Key, Data> {
     Cache<Key, Data> cache = new Cache<>(10);
 
+    // GET a new node with with a certain value
     public FrequencyNode<Key> getNewNode(Integer value, FrequencyNode<Key> prev, FrequencyNode<Key> next) {
         FrequencyNode<Key> newNode = new FrequencyNode<>(value, prev, next);
         prev.setNext(newNode);
@@ -10,6 +11,7 @@ public class CacheEviction<Key, Data> {
         return newNode;
     }
 
+    // ACCESS some data given the key, but also increase that element's frequency
     public Data access(Key key) {
         Item<Key, Data> item = cache.getCacheMap().get(key);
         if (item == null) throw new RuntimeException("No such key.");
@@ -43,6 +45,7 @@ public class CacheEviction<Key, Data> {
         cache.getCacheMap().put(key, new Item<>(value, frequencyNode));
     }
 
+    // DELETE Node (for when its KeySet is empty)
     public void deleteNode(FrequencyNode<Key> node) {
         node.getPrev().setNext(node.getNext());
         node.getNext().setPrev(node.getPrev());
@@ -59,7 +62,6 @@ public class CacheEviction<Key, Data> {
     public void evictLFUItem() {
         FrequencyNode<Key> leastFrequencyUsedNode = cache.getFrequencyHead().getNext();
         Key key = getLFUItem();
-        //System.out.println("we're gonna remove " + key);
 
         // we'll remove the key from both data structures
         cache.getCacheMap().remove(key);
