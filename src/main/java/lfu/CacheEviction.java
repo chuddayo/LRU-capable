@@ -3,7 +3,7 @@ package lfu;
 public class CacheEviction<Key, Data> {
     Cache<Key, Data> cache = new Cache<>(10);
 
-    // GET a new node with with a certain value
+    // GET a new node with a certain value
     public FrequencyNode<Key> getNewNode(Integer value, FrequencyNode<Key> prev, FrequencyNode<Key> next) {
         FrequencyNode<Key> newNode = new FrequencyNode<>(value, prev, next);
         prev.setNext(newNode);
